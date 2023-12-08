@@ -1,0 +1,13 @@
+---
+  - name: play to add user1 to user group
+    hosts: all
+    tasks: 
+      - name: create a group user
+        group:
+          name: user
+          state: present
+      - name: add user to group
+        user:
+          name: user1
+          groups: user
+
