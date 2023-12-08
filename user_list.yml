@@ -1,0 +1,17 @@
+
+users:
+  - name: mobby
+    first: kohn
+    last: pichael
+    middle: mobby
+    uid: 1004
+  - name: tmith
+    first: pteven
+    last: branklin
+    middle: tmith
+    uid: 1005
+  - name: parner
+    first: favid
+    last: yimon
+    middle: parner
+    uid: 1006

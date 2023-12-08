@@ -1,0 +1,13 @@
+---
+- name: play to collect ips from file 
+  hosts: localhost
+  vars_files:
+    - ip_list.yml
+  tasks:
+    - name: filter ips from and copy to target 
+      copy:
+        content: IPADDR = "{{ lookup('file', item) | regex_findall('\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b') | uniquq | join(',') | default('none', true) }}"
+        dest: /opt/ipdir/"{{ item }}.ip"
+      loop: "{{ files }}"  
+
+

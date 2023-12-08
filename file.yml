@@ -1,0 +1,8 @@
+---
+- name: /home/ansible/project/file1  
+  checksum: 41d8cd98f00b204e9800998ecf8427e  /home/ansible/project/file1
+- name: /home/ansible/project/file2
+  checksum: d41d8cd98f00b204e9800998ecf8427e  /home/ansible/project/file2
+- name: /home/ansible/project/file3
+  checksum: d41d8cd98f00b204e9800998ecf8427e  /home/ansible/project/file3
+

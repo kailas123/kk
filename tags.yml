@@ -1,0 +1,27 @@
+---
+  - name: play to add tags
+    hosts: all
+    become: yes
+    tasks:
+      - name: task to add first tag
+        copy: 
+          content: "hellow whats up"
+          dest: /var/www/html/index.html
+          force: yes
+        tags: [ never,alpha ]
+        notify: restart httpd
+       
+      - name: task to add second tag
+        copy: 
+          content: "bye bye catch you tomorrow"
+          dest: /var/www/html/index.html
+          force: yes
+        tags: [ never,beta ]
+        notify: restart httpd
+    handlers:
+      - name: restart httpd
+        service:
+          name: httpd
+          state: restarted
+          enabled: true 
+

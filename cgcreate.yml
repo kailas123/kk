@@ -1,0 +1,15 @@
+---
+  - name: paly to install cg packages ans create cgroup
+    hosts: localhost
+    become: yes  
+    tasks:
+      - name: install cg packages
+        yum:
+          name: "{{ item }}"
+          state: present
+        loop:
+          - libcgroup
+          - libcgroup-tools
+      - name: create cgroup
+        shell: cgcreate -a ansible:ansible -t ansible:ansible -g cpuacct,memory,pids:ex448
+

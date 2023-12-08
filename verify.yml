@@ -1,0 +1,30 @@
+---
+  - name: play to verify files integrity
+    hosts: localhost
+    become: yes
+    vars_files:
+      - file.yml
+    tasks:
+      - name: verify files integrity 
+        stat:
+          path: "{{ item.file }}"
+        loop: "{{ file_checksum }}"  
+        #when: item.file is defined
+        register: stat_results
+      
+      - name: checksum is pass
+        debug:
+          msg: "Checksum PASS: {{ item.stat.path }}"
+        when: item.stat.checksum == item.item.checksum.split()[0]
+        loop: "{{ stat_results.results }}"
+        loop_control: 
+          label: "{{ item.stat.path }}"
+        
+      - name: checksum fail
+        debug:
+          msg: "Checksum FAIL: {{ item.stat.path }}"
+        when: item.stat.checksum != item.item.checksum.split()[0]
+        loop: "{{ stat_results.results }}"
+        loop_control: 
+          label: "{{ item.stat.path }}"
+

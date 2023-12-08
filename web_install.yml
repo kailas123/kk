@@ -1,0 +1,33 @@
+---
+  - name: play to install web
+    hosts: all
+    become: yes
+    tasks:
+      - name: install web using jinja2 template
+        copy:
+          src: alias.conf
+          dest: /var/www/html/index.html
+          force: yes
+        notify: restart httpd
+      - name: make sure ports are open
+        firewalld:
+          name: "{{ item }}"
+          immediate: true
+          permanent: true
+        loop:
+          - http
+          - https
+        notify: restart firewalld
+    handlers:
+      - name: restart httpd
+        service:
+          name: httpd
+          state: restarted
+          enabled: true
+      - name: restart firewalld
+        service:
+          name: firewalld
+          state: restarted
+          enabled: true 
+
+
